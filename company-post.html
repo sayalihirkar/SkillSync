@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Job - SkillSync</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #c9d6ff;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+        }
+
+        .container {
+            background: #fff;
+            width: 800px;
+            padding: 2rem;
+            margin: 50px auto;
+            border-radius: 10px;
+            box-shadow: 0 20px 35px rgba(0,0,1,0.1);
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: auto;
+        }
+
+        button {
+            background: rgb(125,125,235);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #07001f;
+        }
+
+        .qualification-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .qualification-tag {
+            background: #e9ecef;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .remove-qual {
+            cursor: pointer;
+            color: #dc3545;
+        }
+
+        #qualificationInput {
+            width: calc(100% - 100px);
+            margin-right: 10px;
+        }
+
+        .add-qual-btn {
+            width: 90px;
+            padding: 0.8rem;
+            background: #28a745;
+        }
+
+        .qual-input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .home-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .home-link a {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 15px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .home-link a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="home-link">
+        <a href="index.html">
+            <i class="fas fa-home"></i>
+            <span>Back to Home</span>
+        </a>
+    </div>
+
+    <div class="container">
+        <h1 class="form-title">Post a New Job</h1>
+        <form id="jobPostForm">
+            <div class="form-group">
+                <label for="jobTitle">Job Title</label>
+                <input type="text" id="jobTitle" required>
+            </div>
+
+            <div class="form-group">
+                <label for="company">Company Name</label>
+                <input type="text" id="company" required>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" id="location" required>
+            </div>
+
+            <div class="form-group">
+                <label for="salary">Salary Range</label>
+                <input type="text" id="salary" placeholder="e.g., $50,000 - $70,000" required>
+            </div>
+
+            <div class="form-group">
+                <label>Suitable for Persons with:</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="mobility" value="Mobility Issues">
+                        <label for="mobility">Mobility Issues</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="visual" value="Visual Impairment">
+                        <label for="visual">Visual Impairment</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="hearing" value="Hearing Impairment">
+                        <label for="hearing">Hearing Impairment</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="cognitive" value="Cognitive Disabilities">
+                        <label for="cognitive">Cognitive Disabilities</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Required Qualifications</label>
+                <div class="qual-input-group">
+                    <input type="text" id="qualificationInput" placeholder="Enter qualification">
+                    <button type="button" class="add-qual-btn">Add</button>
+                </div>
+                <div id="qualificationsList" class="qualification-list"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Job Description</label>
+                <textarea id="description" required></textarea>
+            </div>
+
+            <button type="submit">Post Job</button>
+        </form>
+    </div>
+
+    <script type="module" src="js/company-post.js"></script>
+</body>
+</html> 

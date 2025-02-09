@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+            margin: 0;
+            padding: 20px;
+        }
+        .dashboard-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 20px 35px rgba(0,0,1,0.1);
+            max-width: 800px;
+            margin: 50px auto;
+        }
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logout-btn {
+            background: rgb(125,125,235);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+        }
+        .logout-btn:hover {
+            background: #07001f;
+        }
+        .user-profile {
+            text-align: center;
+            padding: 20px;
+        }
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            object-fit: cover;
+            border: 3px solid rgb(125,125,235);
+        }
+        #google_translate_element {
+            position: absolute;
+            top: 20px;
+            right: 100px;
+            z-index: 1000;
+            background: white;
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .goog-te-gadget {
+            font-family: 'Poppins', sans-serif !important;
+        }
+        
+        .goog-te-gadget-simple {
+            background-color: white !important;
+            border: 1px solid rgb(125,125,235) !important;
+            padding: 8px 12px !important;
+            border-radius: 4px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .goog-te-gadget-simple:hover {
+            background-color: #f8f9fa !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+        }
+        
+        .goog-te-menu-value {
+            color: rgb(125,125,235) !important;
+            font-size: 14px !important;
+            font-weight: 500 !important;
+        }
+        
+        .goog-te-menu-value span {
+            color: rgb(125,125,235) !important;
+        }
+        
+        .goog-te-menu-frame {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+            border-radius: 8px !important;
+        }
+        
+        .goog-te-menu2 {
+            border-radius: 8px !important;
+            border: none !important;
+        }
+        
+        .goog-te-menu2-item div {
+            padding: 8px 16px !important;
+            font-family: 'Poppins', sans-serif !important;
+        }
+        
+        .goog-te-banner-frame {
+            display: none !important;
+        }
+        
+        body {
+            top: 0 !important;
+        }
+    </style>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,hi,ta,mr',
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                },
+                'google_translate_element'
+            );
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+        <div class="welcome-message">
+            <div class="user-profile">
+                <img id="userPhoto" src="" alt="Profile Photo" class="profile-photo">
+                <h1>Welcome, <span id="userName">User</span>!</h1>
+                <p id="userEmail"></p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+
+        const firebaseConfig = {
+            // Your firebase config object
+            apiKey: "AIzaSyD5SWLYarBZsy-GQNqNWaOEGvwCgU5C6Ns",
+            authDomain: "skillsync-8da60.firebaseapp.com",
+            projectId: "skillsync-8da60",
+            storageBucket: "skillsync-8da60.firebasestorage.app",
+            messagingSenderId: "1004601660354",
+            appId: "1:1004601660354:web:0de9a095c56e5940f93c5b",
+            measurementId: "G-73RXN0WS7X"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Check if user is logged in
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('userPhoto').src = user.photoURL || 'https://via.placeholder.com/100';
+                document.getElementById('userName').textContent = user.displayName || user.email.split('@')[0];
+                document.getElementById('userEmail').textContent = user.email;
+            } else {
+                window.location.href = '/login.html';
+            }
+        });
+
+        // Handle logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            signOut(auth).then(() => {
+                window.location.href = '/login.html';
+            });
+        });
+    </script>
+</body>
+</html> 

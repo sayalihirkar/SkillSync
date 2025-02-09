@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Stories - Swaraj Ability</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .hidden {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        .visible {
+            max-height: 500px; /* Adjust this height based on your content length */
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-gray-100">
+    <header class="bg-white shadow-md">
+        <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center">
+                <a href="index.html">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='50'%3E%3Ctext x='10' y='35' font-family='Arial' font-size='24' font-weight='bold' fill='%23FF5722'%3ESkillSync%3C/text%3E%3C/svg%3E" alt="SkillSync Logo" class="h-12">
+
+                </a>
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="text-gray-600 hover:text-blue-600">Home</a>
+                <a href="#" class="text-gray-600 hover:text-blue-600">Jobs</a>
+                <a href="#" class="text-gray-600 hover:text-blue-600">Training</a>
+                <a href="#" class="text-gray-600 hover:text-blue-600">Resources</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-6">Success Stories</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Blog Card 1 -->
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <h2 class="text-xl font-semibold mb-2">Finding My Path to Inclusion</h2>
+                <p class="text-gray-600 mb-4">"When I first signed up for SkillSync, I was uncertain about how inclusive the workplace could truly be. However..." - <strong>Riya Sharma</strong></p>
+                <button class="text-blue-600 hover:underline" onclick="toggleContent('story1')">Read More</button>
+                <div id="story1" class="hidden mt-4">
+                    <p class="text-gray-700 mb-4">When I first signed up for Swaraj Ability, I was uncertain about how inclusive the workplace could truly be. However, the platform's curated job listings and supportive community changed my perspective. Through the blog section, I connected with someone who had faced challenges similar to mine. Their advice on interview preparation and workplace adaptation was invaluable. Today, I work as a graphic designer for an organization that values my contributions, regardless of my physical limitations.</p>
+                    <p class="text-gray-700">The support from this platform didn’t end with finding a job. Regular webinars and resources provided me with tools to thrive in my role. Sharing my story on Swaraj Ability helped me give back to the community, inspiring others to believe in their potential. This platform is not just a job portal; it’s a lifeline for people like me.</p>
+                </div>
+            </div>
+            <!-- Blog Card 2 -->
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <h2 class="text-xl font-semibold mb-2">From Doubt to Confidence</h2>
+                <p class="text-gray-600 mb-4">"Joining SkillSync was a game-changer for me. The tailored job listings and skill-building resources..." - <strong>Aarav Kapoor</strong></p>
+                <button class="text-blue-600 hover:underline" onclick="toggleContent('story2')">Read More</button>
+                <div id="story2" class="hidden mt-4">
+                    <p class="text-gray-700 mb-4">Joining SkillSync was a game-changer for me. The tailored job listings and skill-building resources were exactly what I needed. Initially, I was apprehensive about my ability to compete in the job market, but Swaraj Ability's AI-driven suggestions and training modules helped me bridge the gap. Through their mentorship program, I received guidance that boosted my confidence.</p>
+                    <p class="text-gray-700">Today, I’m a customer service executive at a leading firm, and I owe it to the platform and its community. Sharing experiences with others in the same boat taught me resilience and self-belief. Swaraj Ability is more than just a job platform; it’s a movement towards creating an equitable society for all.</p>
+                </div>
+            </div>
+            <!-- Blog Card 3 -->
+            <div class="bg-white shadow-md rounded-lg p-4">
+                <h2 class="text-xl font-semibold mb-2">A Journey of Resilience</h2>
+                <p class="text-gray-600 mb-4">"SkillSync gave me the confidence to pursue my dream job in software development, despite facing numerous challenges..." - <strong>Devika Singh</strong></p>
+                <button class="text-blue-600 hover:underline" onclick="toggleContent('story3')">Read More</button>
+                <div id="story3" class="hidden mt-4">
+                    <p class="text-gray-700 mb-4">SkillSync gave me the confidence to pursue my dream job in software development, despite facing numerous challenges. The platform helped me build the right skill set through courses and peer interactions, which empowered me to apply for positions that seemed out of reach before. The job application process was much smoother, with the community offering insights on the industry standards and expectations.</p>
+                    <p class="text-gray-700">Now, I'm part of an amazing tech team, working on AI projects. I feel proud to be part of a platform that values inclusivity and diversity. Swaraj Ability didn’t just help me find a job; it helped me find my purpose and redefine my career path.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 mt-auto">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-400">&copy; 2024 SkillSync. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleContent(id) {
+            const allContents = document.querySelectorAll('.hidden, .visible');
+            allContents.forEach(content => {
+                if (content.id !== id) {
+                    content.classList.remove('visible');
+                    content.classList.add('hidden');
+                }
+            });
+
+            const selectedContent = document.getElementById(id);
+            if (selectedContent.classList.contains('hidden')) {
+                selectedContent.classList.remove('hidden');
+                selectedContent.classList.add('visible');
+            } else {
+                selectedContent.classList.remove('visible');
+                selectedContent.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

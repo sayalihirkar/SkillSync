@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Programs - SkillSync</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+        }
+        .course-card {
+            transition: transform 0.3s ease;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold text-gray-800">SkillSync</a>
+            <a href="index.html" class="text-gray-600 hover:text-gray-800">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-center mb-8">Training Programs</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Web Development Course -->
+            <div class="course-card bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://source.unsplash.com/800x600/?coding" alt="Web Development" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2">Web Development</h2>
+                    <p class="text-gray-600 mb-4">Learn HTML, CSS, JavaScript, and modern web frameworks. Perfect for beginners!</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-blue-600 font-semibold">₹4,999</span>
+                        <button onclick="window.location.href='premium.html'" 
+                                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            Explore More
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Digital Marketing -->
+            <div class="course-card bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://source.unsplash.com/800x600/?marketing" alt="Digital Marketing" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2">Digital Marketing</h2>
+                    <p class="text-gray-600 mb-4">Master SEO, social media marketing, and content strategy. Start your marketing career!</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-blue-600 font-semibold">₹3,999</span>
+                        <button onclick="window.location.href='premium.html'" 
+                                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            Explore More
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Analysis -->
+            <div class="course-card bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://source.unsplash.com/800x600/?data" alt="Data Analysis" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold mb-2">Data Analysis</h2>
+                    <p class="text-gray-600 mb-4">Learn Python, SQL, and data visualization. Become a data analyst!</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-blue-600 font-semibold">₹5,999</span>
+                        <button onclick="window.location.href='premium.html'" 
+                                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            Explore More
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

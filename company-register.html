@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Registration - SkillSync</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Company Registration</h1>
+        <form id="companyRegForm">
+            <div class="form-group">
+                <label for="companyName">Company Name</label>
+                <input type="text" id="companyName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="businessRegNo">Business Registration Number</label>
+                <input type="text" id="businessRegNo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="jobTitle">Job Title</label>
+                <input type="text" id="jobTitle" required>
+            </div>
+
+            <div class="form-group">
+                <label for="salary">Salary Range</label>
+                <input type="text" id="salary" placeholder="e.g., ₹30,000 - ₹50,000" required>
+            </div>
+
+            <div class="form-group">
+                <label for="qualifications">Required Qualifications (comma-separated)</label>
+                <input type="text" id="qualifications" 
+                       placeholder="e.g., B.Tech, 2 years experience, Python" required>
+            </div>
+
+            <div class="form-group">
+                <label>Suitable for Persons with:</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="mobility" value="Mobility Issues">
+                        <label for="mobility">Mobility Issues</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="visual" value="Visual Impairment">
+                        <label for="visual">Visual Impairment</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="hearing" value="Hearing Impairment">
+                        <label for="hearing">Hearing Impairment</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="cognitive" value="Cognitive Disabilities">
+                        <label for="cognitive">Cognitive Disabilities</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="jobDescription">Job Description</label>
+                <textarea id="jobDescription" required></textarea>
+            </div>
+
+            <button type="submit">Register & Post Job</button>
+        </form>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, getDocs } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD5SWLYarBZsy-GQNqNWaOEGvwCgU5C6Ns",
+            authDomain: "skillsync-8da60.firebaseapp.com",
+            projectId: "skillsync-8da60",
+            storageBucket: "skillsync-8da60.firebasestorage.app",
+            messagingSenderId: "1004601660354",
+            appId: "1:1004601660354:web:0de9a095c56e5940f93c5b",
+            measurementId: "G-73RXN0WS7X"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Store hardcoded jobs if they don't exist
+        async function storeHardcodedJobs() {
+            const hardcodedJobs = [
+                { 
+                    title: "Software Engineer",
+                    description: "Develop and maintain software solutions using Python and Java.",
+                    suitableFor: ["Normal", "Mobility Issues"],
+                    companyName: "TechWorld Inc.",
+                    location: "Remote",
+                    salary: "₹60,000 - ₹80,000",
+                    qualifications: ["B.Tech", "Python", "Java"],
+                    status: 'active',
+                    postedAt: serverTimestamp()
+                },
+                {
+                    title: "Data Scientist",
+                    description: "Analyze data to derive insights and build predictive models.",
+                    suitableFor: ["Normal"],
+                    companyName: "DataViz Corp.",
+                    location: "New York, USA",
+                    salary: "₹80,000 - ₹120,000",
+                    qualifications: ["M.Tech/MS", "Python", "Machine Learning"],
+                    status: 'active',
+                    postedAt: serverTimestamp()
+                },
+                {
+                    title: "Accessibility Tester",
+                    description: "Test and improve website accessibility for compliance with WCAG standards.",
+                    suitableFor: ["Blind", "Mobility Issues"],
+                    companyName: "Inclusive Web",
+                    location: "Remote",
+                    salary: "₹40,000 - ₹60,000",
+                    qualifications: ["WCAG Knowledge", "Screen Reader Experience"],
+                    status: 'active',
+                    postedAt: serverTimestamp()
+                },
+                {
+                    title: "Customer Support Executive",
+                    description: "Provide customer support via chat and email.",
+                    suitableFor: ["Normal", "Hearing Impaired"],
+                    companyName: "HelpConnect",
+                    location: "Delhi",
+                    salary: "₹25,000 - ₹35,000",
+                    qualifications: ["Graduate", "Good written communication"],
+                    status: 'active',
+                    postedAt: serverTimestamp()
+                },
+                {
+                    title: "Content Writer",
+                    description: "Write engaging content for blogs, articles, and social media platforms.",
+                    suitableFor: ["Normal", "Blind"],
+                    companyName: "CreativeThink",
+                    location: "Remote",
+                    salary: "₹35,000 - ₹50,000",
+                    qualifications: ["English Proficiency", "Creative Writing"],
+                    status: 'active',
+                    postedAt: serverTimestamp()
+                },
+                {
+                    title: "Graphic Designer",
+                    description: "Design visual content using tools like Adobe Photoshop and Illustrator.",
+                    suitableFor: ["Normal", "Mobility Issues"],
+                    companyName: "PixelCraft",
+                    location: "London, UK",
+                    salary: "₹45,000 - ₹70,000",
+                    qualifications: ["Design Degree", "Adobe Creative Suite"],
+                    status: 'active',
+                    postedAt: serverTimestamp()
+                },
+                {
+                    title: "Digital Marketer",
+                    description: "Plan and execute marketing campaigns using SEO and social media platforms.",
+                    suitableFor: ["Normal", "Visually Impaired"],
+                    companyName: "MarketMania",
+                    location: "Remote",
+                    salary: "₹40,000 - ₹65,000",
+                    qualifications: ["Marketing Degree", "SEO Knowledge"],
+                    status: 'active',
+                    postedAt: serverTimestamp()
+                }
+            ];
+
+            try {
+                const jobsCollection = collection(db, "jobs");
+                const snapshot = await getDocs(jobsCollection);
+                
+                if (snapshot.empty) {
+                    for (const job of hardcodedJobs) {
+                        await addDoc(jobsCollection, job);
+                    }
+                    console.log("Hardcoded jobs stored successfully");
+                }
+            } catch (error) {
+                console.error("Error storing hardcoded jobs:", error);
+            }
+        }
+
+        // Call this when the page loads
+        storeHardcodedJobs();
+
+        document.getElementById('companyRegForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const jobData = {
+                companyName: document.getElementById('companyName').value,
+                businessRegNo: document.getElementById('businessRegNo').value,
+                jobTitle: document.getElementById('jobTitle').value,
+                salary: document.getElementById('salary').value,
+                qualifications: document.getElementById('qualifications').value.split(',').map(q => q.trim()),
+                suitableFor: Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value),
+                jobDescription: document.getElementById('jobDescription').value,
+                postedAt: serverTimestamp(),
+                status: 'active'
+            };
+
+            try {
+                await addDoc(collection(db, "jobs"), jobData);
+                alert('Registration successful! Your job has been posted.');
+                window.location.href = '/index.html';
+            } catch (error) {
+                console.error("Error posting job:", error);
+                alert('Error posting job. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html> 
